@@ -113,9 +113,8 @@ public class AssignmentHandler {
     public void updateAssignmentStatuses()
     {
         if(this.student.getAssignments() != null) {
-            LocalDate current = LocalDate.now();
             for (Assignment a : this.student.getAssignments()) {
-                a.setPriorityOnDate(current);
+                a.setPriorityOnDate(a.getDueDate());
                 a.checkOverDue(a.getDueDate());
             }
         }
@@ -124,7 +123,9 @@ public class AssignmentHandler {
     /**
      * Method to check if the assignment exists in the user's list
      * and edit it as required
-     * @param a assignment
+     * @param oldCourseNum old course number
+     * @param oldTitle old assignment Title
+     * @param oldCourseCode old course code
      * @param courseCode new course code
      * @param courseNum new course number
      * @param type new type
@@ -134,27 +135,42 @@ public class AssignmentHandler {
      * @param date new date
      * @throws IllegalArgumentException if the list doesn't contain the assignment
      */
-    public void editAssignment(Assignment a, String courseCode, int courseNum,
+    public void editAssignment(String oldCourseCode, int oldCourseNum, String oldTitle, String courseCode, int courseNum,
                                    AssignmentType type,
                                    String title, String description,
                                    AssignmentStatus status, LocalDate date)
     {
-        if(!this.student.getAssignments().contains(a))
-            throw new IllegalArgumentException("Invalid Assignment selected!");
+        Assignment a = findAssignment(oldCourseCode, oldCourseNum, oldTitle);
+        if(a == null)
+            throw new IllegalArgumentException("Invalid Assignment Selected !");
         else {
-            for(Assignment assignment : this.getAssignments()) {
-                if(assignment.equals(a)) {
-                    assignment.editDescription(description);
-                    assignment.editStatus(status);
-                    assignment.editType(type);
-                    assignment.editTitle(title);
-                    assignment.editCourseCode(courseCode);
-                    assignment.setNewDueDate(date);
-                    assignment.editCourseNumber(courseNum);
-                    break;
-                }
-            }
+            a.editDescription(description);
+            a.editStatus(status);
+            a.editType(type);
+            a.editTitle(title);
+            a.editCourseCode(courseCode);
+            a.setNewDueDate(date);
+            a.editCourseNumber(courseNum);
         }
+    }
+
+    /**
+     * Private helper method to locate the assignment in the user assignment list
+     * @param courseCode course code
+     * @param courseNum course number
+     * @param title title of the assignment
+     * @return the assignment object if found else null
+     */
+    public Assignment findAssignment(String courseCode, int courseNum, String title)
+    {
+        for(Assignment a : this.student.getAssignments())
+        {
+            if(a.getCourseNumber() == courseNum &&
+            a.getCourseCode().equals(courseCode) &&
+            a.getTitle().equals(title))
+                return a;
+        }
+        return null;
     }
 
     /**

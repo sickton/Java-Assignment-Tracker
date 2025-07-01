@@ -1,9 +1,9 @@
-package test;
+package test.Handlers;
 
 import model.Data.AssignmentStatus;
 import model.Data.AssignmentType;
+import model.Data.Priority;
 import view.Handlers.AssignmentHandler;
-import model.Users.Student;
 import model.Data.Assignment;
 
 import org.junit.Before;
@@ -19,7 +19,7 @@ public class AssignmentHandlerTest {
 
     @Before
     public void setup() {
-        handler = new AssignmentHandler("Jane", "Doe", 10, "JD1", "JD1@XYZ.com", "Computer Science");
+        handler = new AssignmentHandler("Random", "Person", 20, "RP1", "RP1@XYZ.com", "Computer Science");
         Assignment a = new Assignment("CSC", 101, AssignmentType.CODE, "Variables coding", "Code 3 classes", AssignmentStatus.ASSIGNED, LocalDate.now().minusDays(5));
         Assignment a1 = new Assignment("CH", 101, AssignmentType.HOMEWORK, "Homework 1", "On WebAssign", AssignmentStatus.UNASSIGNED, LocalDate.parse("2025-07-20"));
         Assignment a2 = new Assignment("PHY", 201, AssignmentType.LAB, "Laws of Motion Lab", "Check on lab website", AssignmentStatus.PENDING, LocalDate.parse("2025-07-11"));
@@ -64,19 +64,20 @@ public class AssignmentHandlerTest {
     @Test
     public void testEditAssignment()
     {
-         Assignment a = new Assignment("CH", 101, AssignmentType.HOMEWORK, "Homework 1", "On WebAssign", AssignmentStatus.UNASSIGNED, LocalDate.parse("2025-07-20"));
-         handler.editAssignment(a, a.getCourseCode(), a.getCourseNumber(), a.getAssignmentType(), a.getTitle(), a.getDescription(), a.getStatus(), LocalDate.parse("2025-07-10"));
-         handler.editAssignment(a, a.getCourseCode(), a.getCourseNumber(), a.getAssignmentType(), a.getTitle(), a.getDescription(), AssignmentStatus.COMPLETED, a.getDueDate());
-         handler.editAssignment(a, a.getCourseCode(), a.getCourseNumber(), a.getAssignmentType(), a.getTitle(), "On Pearson's", a.getStatus(), a.getDueDate());
-         handler.editAssignment(a, a.getCourseCode(), a.getCourseNumber(), a.getAssignmentType(), "Homework 0", a.getDescription(), a.getStatus(), a.getDueDate());
-         handler.editAssignment(a, a.getCourseCode(), a.getCourseNumber(), AssignmentType.PROJECT, a.getTitle(), a.getDescription(), a.getStatus(), a.getDueDate());
-         Assignment exp = handler.getAssignmentsByType(AssignmentType.PROJECT).getFirst();
-         assertEquals("CH", exp.getCourseCode());
-         assertEquals(101, exp.getCourseNumber());
-         assertEquals(AssignmentType.PROJECT, exp.getAssignmentType());
-         assertEquals("Homework 0", exp.getTitle());
-         assertEquals("On Pearson's", exp.getDescription());
-         assertEquals(AssignmentStatus.COMPLETED, exp.getStatus());
-         assertEquals("2025-07-10", exp.getDueDate().toString());
+         Assignment sample = new Assignment("CH", 101, AssignmentType.HOMEWORK, "Homework 1", "On WebAssign", AssignmentStatus.UNASSIGNED, LocalDate.parse("2025-07-20"));
+         handler.editAssignment("CH", 101, "Homework 1", sample.getCourseCode(), sample.getCourseNumber()
+         , sample.getAssignmentType(), "Homework 01", "20 numericals to solve", AssignmentStatus.PENDING, sample.getDueDate());
+        Assignment a = handler.findAssignment("CH", 101, "Homework 01");
+        assertEquals(AssignmentStatus.PENDING, a.getStatus());
+        assertEquals("20 numericals to solve", a.getDescription());
+        assertEquals(AssignmentType.HOMEWORK, a.getAssignmentType());
+    }
+
+    @Test
+    public void testUpdateStatus()
+    {
+        handler.updateAssignmentStatuses();
+        assertEquals(Priority.HIGH, handler.findAssignment("CSC", 101, "Variables coding").getPriority());
+        assertEquals(Priority.LOW, handler.findAssignment("CH", 101, "Homework 1").getPriority());
     }
 }

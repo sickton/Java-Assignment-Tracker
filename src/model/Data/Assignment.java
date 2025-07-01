@@ -72,7 +72,7 @@ public class Assignment {
         if(description == null)
             throw new IllegalArgumentException("Invalid Assignment Description !");
         this.description = description;
-        this.priority = Priority.LOW;
+        setPriorityOnDate(this.dueDate);
     }
 
     /**
@@ -81,7 +81,7 @@ public class Assignment {
      */
     public void setCourseCode(String courseCode)
     {
-        if(courseCode.length() > THREE)
+        if(courseCode.length() > THREE || courseCode.isEmpty())
             throw new IllegalArgumentException("Invalid Course Code !");
         for(int i = 0; i < courseCode.length(); i++)
         {
@@ -256,6 +256,8 @@ public class Assignment {
      */
     public void editStatus(AssignmentStatus newStatus)
     {
+        if(newStatus == null)
+            throw new IllegalArgumentException("Invalid status assigned!");
         this.status = newStatus;
     }
 
@@ -285,6 +287,8 @@ public class Assignment {
      */
     public void editCourseCode(String newCourseCode)
     {
+        if(newCourseCode == null)
+            throw new IllegalArgumentException("Invalid Course Code !");
         setCourseCode(newCourseCode);
     }
 
