@@ -102,7 +102,7 @@ public class Student {
             throw new IllegalArgumentException("Invalid major !");
         for(int i = 0; i < major.length(); i++)
         {
-            if(!Character.isLetter(major.charAt(i)))
+            if(!Character.isLetter(major.charAt(i)) && !Character.isSpaceChar(major.charAt(i)))
                 throw new IllegalArgumentException("Invalid Major !");
         }
         this.major = major;
@@ -225,7 +225,7 @@ public class Student {
             return false;
         else
         {
-            this.assignments.add(a);
+            this.assignments.addLast(a);
             return true;
         }
     }

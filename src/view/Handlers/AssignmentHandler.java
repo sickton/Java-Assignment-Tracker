@@ -116,7 +116,7 @@ public class AssignmentHandler {
             LocalDate current = LocalDate.now();
             for (Assignment a : this.student.getAssignments()) {
                 a.setPriorityOnDate(current);
-                a.checkOverDue(current);
+                a.checkOverDue(a.getDueDate());
             }
         }
     }
@@ -141,12 +141,28 @@ public class AssignmentHandler {
     {
         if(!this.student.getAssignments().contains(a))
             throw new IllegalArgumentException("Invalid Assignment selected!");
-        a.editDescription(description);
-        a.editStatus(status);
-        a.editType(type);
-        a.editTitle(title);
-        a.editCourseCode(courseCode);
-        a.setNewDueDate(date);
-        a.editCourseNumber(courseNum);
+        else {
+            for(Assignment assignment : this.getAssignments()) {
+                if(assignment.equals(a)) {
+                    assignment.editDescription(description);
+                    assignment.editStatus(status);
+                    assignment.editType(type);
+                    assignment.editTitle(title);
+                    assignment.editCourseCode(courseCode);
+                    assignment.setNewDueDate(date);
+                    assignment.editCourseNumber(courseNum);
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Method to return the student in this handler
+     * @return student object
+     */
+    public Student getStudent()
+    {
+        return this.student;
     }
 }

@@ -2,6 +2,7 @@ package model.Data;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.UUID;
 
 /**
  * Class to create a type of assignment and store it in the
@@ -41,6 +42,9 @@ public class Assignment {
 
     /** Field to store the due date with the local date of creation of the assignment */
     private LocalDate dueDate;
+
+    /** Field to store the unique ID for this assignment */
+    private final UUID assignmentID = UUID.randomUUID();
 
     /**
      * Constructor that creates a new assignment
@@ -131,9 +135,18 @@ public class Assignment {
         if(a.getClass() != this.getClass())
             return false;
         Assignment assignment = (Assignment) a;
-        return (this.title.equals(assignment.getTitle()) &&
-                this.courseCode.equals(assignment.getCourseCode()) &&
-                this.courseNumber == assignment.getCourseNumber());
+        return (this.assignmentID.equals(assignment.getAssignmentID()));
+    }
+
+    /**
+     * Method to return the hash code of assignment ID to identify
+     * a unique assignment
+     * @return assignment ID hash
+     */
+    @Override
+    public int hashCode()
+    {
+        return assignmentID.hashCode();
     }
 
     /**
@@ -206,6 +219,15 @@ public class Assignment {
     public AssignmentType getAssignmentType()
     {
         return this.assignmentType;
+    }
+
+    /**
+     * Method to return the unique assignment ID for this object
+     * @return assignment ID
+     */
+    public UUID getAssignmentID()
+    {
+        return this.assignmentID;
     }
 
     /**
