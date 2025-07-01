@@ -1,4 +1,4 @@
-package Data;
+package model.Data;
 
 /**
  * Enum for tracking the status of the assignment with

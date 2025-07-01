@@ -1,7 +1,7 @@
-package Users;
+package model.Users;
 
-import Data.Assignment;
-import Data.AssignmentStatus;
+import model.Data.Assignment;
+import model.Data.AssignmentStatus;
 
 import java.util.ArrayList;
 import java.util.List;

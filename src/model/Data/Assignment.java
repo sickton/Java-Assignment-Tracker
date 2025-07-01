@@ -1,4 +1,4 @@
-package Data;
+package model.Data;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -58,13 +58,16 @@ public class Assignment {
         setCourseCode(courseCode);
         if(courseNum == 0)
             throw new IllegalArgumentException("Invalid Course number");
+        this.courseNumber = courseNum;
         this.assignmentType = type;
         this.status = status;
         this.dueDate = date;
         if(title == null || title.isEmpty())
             throw new IllegalArgumentException("Invalid Assignment Title !");
+        this.title = title;
         if(description == null)
             throw new IllegalArgumentException("Invalid Assignment Description !");
+        this.description = description;
         this.priority = Priority.LOW;
     }
 

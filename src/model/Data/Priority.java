@@ -1,4 +1,4 @@
-package Data;
+package model.Data;
 
 /**
  * Enum for tracking the priority of the assignment with

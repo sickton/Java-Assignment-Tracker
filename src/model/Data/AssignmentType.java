@@ -1,4 +1,4 @@
-package Data;
+package model.Data;
 
 /**
  * Enum that supports different types of assignments including
