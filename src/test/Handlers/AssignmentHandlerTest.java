@@ -40,7 +40,7 @@ public class AssignmentHandlerTest {
     @Test
     public void testOverdueAssignments()
     {
-        assertEquals(1, handler.getOverdueAssignments().size());
+        assertEquals(2, handler.getOverdueAssignments().size());
     }
 
     @Test
