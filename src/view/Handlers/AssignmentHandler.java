@@ -8,6 +8,7 @@ import model.Users.Student;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class AssignmentHandler {
 
@@ -123,9 +124,7 @@ public class AssignmentHandler {
     /**
      * Method to check if the assignment exists in the user's list
      * and edit it as required
-     * @param oldCourseNum old course number
-     * @param oldTitle old assignment Title
-     * @param oldCourseCode old course code
+     * @param id Assignment ID
      * @param courseCode new course code
      * @param courseNum new course number
      * @param type new type
@@ -135,40 +134,33 @@ public class AssignmentHandler {
      * @param date new date
      * @throws IllegalArgumentException if the list doesn't contain the assignment
      */
-    public void editAssignment(String oldCourseCode, int oldCourseNum, String oldTitle, String courseCode, int courseNum,
-                                   AssignmentType type,
-                                   String title, String description,
-                                   AssignmentStatus status, LocalDate date)
-    {
-        Assignment a = findAssignment(oldCourseCode, oldCourseNum, oldTitle);
-        if(a == null)
+    public void editAssignment(UUID id,
+                               String courseCode, int courseNum,
+                               AssignmentType type, String title,
+                               String description, AssignmentStatus status,
+                               LocalDate date) {
+        Assignment a = findAssignmentByID(id);
+        if (a == null)
             throw new IllegalArgumentException("Invalid Assignment Selected !");
-        else {
-            a.editDescription(description);
-            a.editStatus(status);
-            a.editType(type);
-            a.editTitle(title);
-            a.editCourseCode(courseCode);
-            a.setNewDueDate(date);
-            a.editCourseNumber(courseNum);
-        }
+
+        a.editCourseCode(courseCode);
+        a.editCourseNumber(courseNum);
+        a.editType(type);
+        a.editTitle(title);
+        a.editDescription(description);
+        a.editStatus(status);
+        a.setNewDueDate(date);
     }
+
 
     /**
      * Private helper method to locate the assignment in the user assignment list
-     * @param courseCode course code
-     * @param courseNum course number
-     * @param title title of the assignment
+     * @param id ID of the assignment
      * @return the assignment object if found else null
      */
-    public Assignment findAssignment(String courseCode, int courseNum, String title)
-    {
-        for(Assignment a : this.student.getAssignments())
-        {
-            if(a.getCourseNumber() == courseNum &&
-            a.getCourseCode().equals(courseCode) &&
-            a.getTitle().equals(title))
-                return a;
+    public Assignment findAssignmentByID(UUID id) {
+        for (Assignment a : this.student.getAssignments()) {
+            if (a.getAssignmentID().equals(id)) return a;
         }
         return null;
     }
@@ -180,5 +172,18 @@ public class AssignmentHandler {
     public Student getStudent()
     {
         return this.student;
+    }
+
+    public void deleteAssignment(UUID assignmentID) {
+        this.student.deleteAssignment(assignmentID);
+    }
+
+    public List<Assignment> removeCompletedAssignments() {
+        for(Assignment a : this.student.getAssignments())
+        {
+            if(a.getStatus() == AssignmentStatus.COMPLETED)
+                this.student.deleteAssignment(a.getAssignmentID());
+        }
+        return this.student.getAssignments();
     }
 }

@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class WriterClass {
 
-    private static final String pathToStudentFile = "output/studentList/students.txt";
+    private static final String pathToStudentFile = "src/output/studentList/students.txt";
 
     public static String saveStudentDetails(Student s)
     {
@@ -61,7 +61,7 @@ public class WriterClass {
 
     public static String saveAssignmentsOfHandle(AssignmentHandler a)
     {
-        String pathToAssignmentFile = "output/assignmentList/" + a.getStudent().getStudentID() + ".txt";
+        String pathToAssignmentFile = "src/output/assignmentList/" + a.getStudent().getStudentID() + ".txt";
         try {
             PrintWriter pw = new PrintWriter(new FileOutputStream(pathToAssignmentFile));
             List<Assignment> list = a.getAssignments();

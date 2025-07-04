@@ -1,5 +1,6 @@
 package view.AppFlowLogic;
 
+import model.Data.AssignmentStatus;
 import model.Utils.ReaderClass;
 import model.Utils.WriterClass;
 import model.Data.Assignment;
@@ -11,6 +12,7 @@ import view.Handlers.AssignmentHandler;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class TrackYourWork {
 
@@ -73,5 +75,22 @@ public class TrackYourWork {
         if(currentHandler == null)
             throw new SystemException();
         return currentHandler.getAssignments();
+    }
+
+    public void editAssignment(UUID id, String courseCode, int courseNum,
+                               AssignmentType type,
+                               String title, String description,
+                               AssignmentStatus status, LocalDate date)
+    {
+        currentHandler.editAssignment(id,
+                courseCode, courseNum, type, title, description, status, date);
+    }
+
+    public void deleteAssignment(UUID assignmentID) {
+        currentHandler.deleteAssignment(assignmentID);
+    }
+
+    public List<Assignment> removeCompletedAssignments() {
+        return currentHandler.removeCompletedAssignments();
     }
 }

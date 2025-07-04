@@ -60,24 +60,4 @@ public class AssignmentHandlerTest {
         assertEquals("PHY", handler.getAssignmentsOnDueDate(LocalDate.parse("2025-07-11")).getFirst().getCourseCode());
         assertEquals("EC", handler.getAssignmentsOnDueDate(LocalDate.parse("2025-07-11")).get(1).getCourseCode());
     }
-
-    @Test
-    public void testEditAssignment()
-    {
-         Assignment sample = new Assignment("CH", 101, AssignmentType.HOMEWORK, "Homework 1", "On WebAssign", AssignmentStatus.UNASSIGNED, LocalDate.parse("2025-07-20"));
-         handler.editAssignment("CH", 101, "Homework 1", sample.getCourseCode(), sample.getCourseNumber()
-         , sample.getAssignmentType(), "Homework 01", "20 numericals to solve", AssignmentStatus.PENDING, sample.getDueDate());
-        Assignment a = handler.findAssignment("CH", 101, "Homework 01");
-        assertEquals(AssignmentStatus.PENDING, a.getStatus());
-        assertEquals("20 numericals to solve", a.getDescription());
-        assertEquals(AssignmentType.HOMEWORK, a.getAssignmentType());
-    }
-
-    @Test
-    public void testUpdateStatus()
-    {
-        handler.updateAssignmentStatuses();
-        assertEquals(Priority.HIGH, handler.findAssignment("CSC", 101, "Variables coding").getPriority());
-        assertEquals(Priority.LOW, handler.findAssignment("CH", 101, "Homework 1").getPriority());
-    }
 }

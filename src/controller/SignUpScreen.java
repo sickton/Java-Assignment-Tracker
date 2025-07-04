@@ -2,6 +2,7 @@ package controller;
 
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 public class SignUpScreen extends GridPane {
 
@@ -37,6 +38,14 @@ public class SignUpScreen extends GridPane {
             }
         });
 
+        Button backBtn = new Button("← Back");
+        Button loginBtn = new Button("Already have an account? Login");
+
+        backBtn.setOnAction(e -> app.showWelcomeScreen());
+        loginBtn.setOnAction(e -> app.showLoginScreen());
+
+        HBox navButtons = new HBox(10, backBtn, loginBtn);
+
         add(new Label("First Name:"), 0, 0); add(firstName, 1, 0);
         add(new Label("Last Name:"), 0, 1); add(lastName, 1, 1);
         add(new Label("Age:"), 0, 2); add(age, 1, 2);
@@ -45,5 +54,6 @@ public class SignUpScreen extends GridPane {
         add(new Label("Major:"), 0, 5); add(major, 1, 5);
         add(signUpBtn, 0, 6);
         add(message, 1, 6);
+        add(navButtons, 1, 7);
     }
 }

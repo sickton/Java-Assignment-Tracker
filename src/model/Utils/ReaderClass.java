@@ -13,8 +13,8 @@ import java.util.Scanner;
 
 public class ReaderClass {
 
-    private static final String pathToStudentFile = "output/studentList/students.txt";
-    private static final String halfPath = "output/assignmentList/";
+    private static final String pathToStudentFile = "src/output/studentList/students.txt";
+    private static final String halfPath = "src/output/assignmentList/";
 
     public static Map<String, AssignmentHandler> loadMap() {
         try {

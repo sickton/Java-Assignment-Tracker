@@ -5,6 +5,7 @@ import model.Data.AssignmentStatus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Class to define a user - student with related fields
@@ -245,5 +246,16 @@ public class Student {
     public void deleteCompletedAssignments()
     {
         this.assignments.removeIf(a -> a.getStatus() == AssignmentStatus.COMPLETED);
+    }
+
+    public void deleteAssignment(UUID assignmentID) {
+        for(Assignment a : this.assignments)
+        {
+            if(a.getAssignmentID() == assignmentID)
+            {
+                assignments.remove(a);
+                break;
+            }
+        }
     }
 }
