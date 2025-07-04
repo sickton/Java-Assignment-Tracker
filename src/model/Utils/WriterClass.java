@@ -1,4 +1,4 @@
-package Utils;
+package model.Utils;
 
 import model.Data.Assignment;
 import model.Exceptions.WriterException;

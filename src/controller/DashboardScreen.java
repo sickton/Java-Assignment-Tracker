@@ -1,31 +1,27 @@
-package controller.UI;
+package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 import model.Data.*;
 import view.AppFlowLogic.TrackYourWork;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class DashboardScreen extends VBox{
+public class DashboardScreen extends VBox {
 
-    public static void display(Stage stage, TrackYourWork app) {
-        VBox layout = new VBox(15);
-        layout.setPadding(new Insets(20));
+    public DashboardScreen(AssignmentTrackerUI app, TrackYourWork logic) {
+        this.setPadding(new Insets(20));
+        this.setSpacing(15);
 
-        Label welcome = new Label("Welcome to TrackMyWork!");
+        Label welcome = new Label("Welcome to TrackMyWork Dashboard!");
 
-        // --- Assignment List
         ListView<String> assignmentList = new ListView<>();
-        updateList(assignmentList, app.getAssignments());
+        updateList(assignmentList, logic.getAssignments());
 
-        // --- Filter Section
         ComboBox<AssignmentType> typeFilter = new ComboBox<>();
         typeFilter.getItems().addAll(AssignmentType.values());
         typeFilter.setPromptText("Filter by Type");
@@ -36,24 +32,13 @@ public class DashboardScreen extends VBox{
         Button overdueBtn = new Button("Show Overdue");
         Button showAllBtn = new Button("Show All");
 
-        typeFilter.setOnAction(e -> {
-            if (typeFilter.getValue() != null) {
-                updateList(assignmentList, app.getAssignmentByType(typeFilter.getValue()));
-            }
-        });
-
-        dueDatePicker.setOnAction(e -> {
-            if (dueDatePicker.getValue() != null) {
-                updateList(assignmentList, app.getAssignmentsOnDueDate(dueDatePicker.getValue()));
-            }
-        });
-
-        overdueBtn.setOnAction(e -> updateList(assignmentList, app.getOverdue()));
-        showAllBtn.setOnAction(e -> updateList(assignmentList, app.getAssignments()));
+        typeFilter.setOnAction(e -> updateList(assignmentList, logic.getAssignmentByType(typeFilter.getValue())));
+        dueDatePicker.setOnAction(e -> updateList(assignmentList, logic.getAssignmentsOnDueDate(dueDatePicker.getValue())));
+        overdueBtn.setOnAction(e -> updateList(assignmentList, logic.getOverdue()));
+        showAllBtn.setOnAction(e -> updateList(assignmentList, logic.getAssignments()));
 
         HBox filters = new HBox(10, typeFilter, dueDatePicker, overdueBtn, showAllBtn);
 
-        // --- Add Assignment Section
         TextField courseCode = new TextField(); courseCode.setPromptText("Course Code");
         TextField courseNum = new TextField(); courseNum.setPromptText("Course Number");
         TextField title = new TextField(); title.setPromptText("Title");
@@ -81,9 +66,9 @@ public class DashboardScreen extends VBox{
                         status.getValue(),
                         dueDate.getValue()
                 );
-                app.addAssignment(a);
+                logic.addAssignment(a);
                 message.setText("Assignment added!");
-                updateList(assignmentList, app.getAssignments());
+                updateList(assignmentList, logic.getAssignments());
             } catch (Exception ex) {
                 message.setText("Error: " + ex.getMessage());
             }
@@ -98,16 +83,13 @@ public class DashboardScreen extends VBox{
         addForm.addRow(3, dueDate, addBtn);
         addForm.add(message, 0, 4, 2, 1);
 
-        // --- Save Button
         Button saveBtn = new Button("Save All");
-        saveBtn.setOnAction(e -> message.setText(app.saveAssignments()));
+        saveBtn.setOnAction(e -> message.setText(logic.saveAssignments()));
 
-        layout.getChildren().addAll(welcome, filters, assignmentList, new Label("Add New Assignment:"), addForm, saveBtn);
-        Scene scene = new Scene(layout, 700, 600);
-        stage.setScene(scene);
+        getChildren().addAll(welcome, filters, assignmentList, new Label("Add New Assignment:"), addForm, saveBtn);
     }
 
-    private static void updateList(ListView<String> listView, List<Assignment> assignments) {
+    private void updateList(ListView<String> listView, List<Assignment> assignments) {
         ObservableList<String> items = FXCollections.observableArrayList();
         for (Assignment a : assignments) {
             items.add(a.toString());

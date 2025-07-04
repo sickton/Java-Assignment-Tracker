@@ -1,7 +1,7 @@
 package view.AppFlowLogic;
 
-import Utils.ReaderClass;
-import Utils.WriterClass;
+import model.Utils.ReaderClass;
+import model.Utils.WriterClass;
 import model.Data.Assignment;
 import model.Data.AssignmentType;
 import model.Exceptions.SystemException;
@@ -9,7 +9,6 @@ import model.Users.Student;
 import view.Handlers.AssignmentHandler;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
