@@ -4,10 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import model.Data.*;
 import view.AppFlowLogic.TrackYourWork;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -33,7 +37,7 @@ public class DashboardScreen extends VBox {
 
         // Top bar with logout
         Button logoutBtn = new Button("Logout");
-        logoutBtn.setOnAction(e -> app.showWelcomeScreen());
+        logoutBtn.setOnAction(e -> {logic.saveAssignments(); app.showWelcomeScreen();});
         Label welcome = new Label("Track Your Work efficiently!");
         HBox topBar = new HBox(10, logoutBtn, welcome);
 
