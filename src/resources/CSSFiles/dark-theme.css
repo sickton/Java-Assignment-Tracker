@@ -1,49 +1,73 @@
+/* Root Background */
 .root {
-    -fx-background-color: #1e1e1e;
-    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #121212;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
 }
 
+/* Label Styles */
 .label {
     -fx-text-fill: #e0e0e0;
-    -fx-font-size: 13px;
+    -fx-font-size: 14px;
 }
 
-.text-field,
-.password-field {
-    -fx-background-color: #2c2c2c;
-    -fx-text-fill: #f0f0f0;
-    -fx-border-color: #555;
-    -fx-border-radius: 6;
-    -fx-background-radius: 6;
-    -fx-padding: 6px;
-}
-
-.primary-button {
-    -fx-background-color: #007ACC;
-    -fx-text-fill: white;
+.title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 26px;
     -fx-font-weight: bold;
-    -fx-background-radius: 8;
-    -fx-padding: 8px 16px;
 }
 
-.primary-button:hover {
-    -fx-background-color: #005fa3;
-}
-
-.ghost-button {
-    -fx-background-color: transparent;
+.subtitle {
     -fx-text-fill: #cccccc;
-    -fx-border-color: #555;
-    -fx-border-radius: 6;
-    -fx-padding: 6px 12px;
+    -fx-font-size: 18px;
+    -fx-font-weight: normal;
 }
 
-.ghost-button:hover {
-    -fx-background-color: #333;
+/* GridPane in SignUpScreen */
+.signup-grid {
+    -fx-padding: 30;
+    -fx-alignment: center;
 }
 
+/* WelcomeScreen container */
+.welcome-container {
+    -fx-background-color: transparent;
+    -fx-padding: 40;
+    -fx-alignment: center;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #2a2a2a;
+    -fx-text-fill: #f0f0f0;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-background-radius: 12;
+    -fx-border-color: #444444;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #3d3d3d;
+}
+
+/* Message Label */
 .message-label {
-    -fx-text-fill: #FFD700;
-    -fx-font-style: italic;
-    -fx-padding: 8 0 0 0;
+    -fx-text-fill: #ffb74d;
+    -fx-font-weight: bold;
+}
+
+/* Tooltip */
+.tooltip {
+    -fx-font-size: 12px;
+    -fx-background-color: #333333;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 8;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+/* For logo styling with soft rounded effect if needed */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 8, 0.5, 0, 0);
+    -fx-background-radius: 10;
 }

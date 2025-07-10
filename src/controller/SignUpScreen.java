@@ -1,23 +1,16 @@
 package controller;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-
-import java.util.Objects;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 
 public class SignUpScreen extends GridPane {
 
     public SignUpScreen(AssignmentTrackerUI app) {
         this.setVgap(10);
         this.setHgap(10);
-        this.setPadding(new Insets(30));
-        this.setAlignment(Pos.CENTER);
-        this.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/resources/CSSFiles/dark-theme.css")).toExternalForm());
+        this.getStyleClass().add("signup-grid");
 
-        // Fields
         TextField firstName = new TextField();
         TextField lastName = new TextField();
         TextField age = new TextField();
@@ -27,29 +20,19 @@ public class SignUpScreen extends GridPane {
         PasswordField password = new PasswordField();
         PasswordField retype = new PasswordField();
 
-        // Tooltip
         Tooltip tooltip = new Tooltip("""
             Password must contain at least:
-            • One uppercase letter (A-Z)
-            • One lowercase letter (a-z)
-            • One digit (0-9)
-            • One special character (!,@,#, etc.)
-            """);
+            - One uppercase letter (A-Z)
+            - One lowercase letter (a-z)
+            - One digit (0-9)
+            - One special character (!,@,#, etc.)
+        """);
         password.setTooltip(tooltip);
 
-        // Message
         Label message = new Label();
         message.getStyleClass().add("message-label");
 
-        // Buttons
         Button signUpBtn = new Button("Create Account");
-        Button backBtn = new Button("← Back");
-        Button loginBtn = new Button("Already have an account? Login");
-
-        signUpBtn.getStyleClass().add("primary-button");
-        backBtn.getStyleClass().add("ghost-button");
-        loginBtn.getStyleClass().add("ghost-button");
-
         signUpBtn.setOnAction(e -> {
             try {
                 int ageVal = Integer.parseInt(age.getText());
@@ -69,13 +52,13 @@ public class SignUpScreen extends GridPane {
             }
         });
 
+        Button backBtn = new Button("← Back");
+        Button loginBtn = new Button("Already have an account? Login");
         backBtn.setOnAction(e -> app.showWelcomeScreen());
         loginBtn.setOnAction(e -> app.showLoginScreen());
 
-        HBox navButtons = new HBox(15, backBtn, loginBtn);
-        navButtons.setAlignment(Pos.CENTER);
+        HBox navButtons = new HBox(10, backBtn, loginBtn);
 
-        // Layout
         add(new Label("First Name:"), 0, 0); add(firstName, 1, 0);
         add(new Label("Last Name:"), 0, 1); add(lastName, 1, 1);
         add(new Label("Age:"), 0, 2); add(age, 1, 2);
@@ -86,6 +69,6 @@ public class SignUpScreen extends GridPane {
         add(new Label("Retype Password:"), 0, 7); add(retype, 1, 7);
         add(signUpBtn, 1, 8);
         add(message, 1, 9);
-        add(navButtons, 0, 10, 2, 1);
+        add(navButtons, 1, 10);
     }
 }

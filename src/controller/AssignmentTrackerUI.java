@@ -18,17 +18,15 @@ public class AssignmentTrackerUI extends Application {
         this.primaryStage = primaryStage;
         this.system = new TrackYourWork();
 
-        this.primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/resources/Images/TrackYourWork.png"))));
+        Image appIcon = new Image(Objects.requireNonNull(getClass().getResource("/resources/Images/TrackYourWork.png")).toExternalForm());
+        primaryStage.getIcons().add(appIcon);
         showWelcomeScreen();
     }
 
     public void showWelcomeScreen() {
         WelcomeScreen welcome = new WelcomeScreen(this);
-        Scene scene = new Scene(welcome, 600, 400);
-
-        // Attach dark mode CSS
+        Scene scene = new Scene(welcome, 600, 500);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/resources/CSSFiles/dark-theme.css")).toExternalForm());
-
         primaryStage.setTitle("TrackMyWork - Welcome");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -36,20 +34,18 @@ public class AssignmentTrackerUI extends Application {
 
     public void showLoginScreen() {
         LoginScreen login = new LoginScreen(this);
-        Scene scene = new Scene(login, 600, 400);
-        primaryStage.setTitle("Login");
+        Scene scene = new Scene(login, 500, 450);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/resources/CSSFiles/dark-theme.css")).toExternalForm());
+        primaryStage.setTitle("Login");
         primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
     public void showSignupScreen() {
         SignUpScreen signup = new SignUpScreen(this);
-        Scene scene = new Scene(signup, 600, 400);
-        primaryStage.setTitle("Sign Up");
+        Scene scene = new Scene(signup, 600, 550);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/resources/CSSFiles/dark-theme.css")).toExternalForm());
+        primaryStage.setTitle("Sign Up");
         primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
     public void showDashboard() {
@@ -58,7 +54,6 @@ public class AssignmentTrackerUI extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/resources/CSSFiles/dark-theme.css")).toExternalForm());
         primaryStage.setTitle("Dashboard");
         primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
     public TrackYourWork getSystem() {
