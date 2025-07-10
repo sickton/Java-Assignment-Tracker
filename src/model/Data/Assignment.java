@@ -120,7 +120,7 @@ public class Assignment {
     public void checkOverDue(LocalDate date)
     {
         LocalDate current = LocalDate.now();
-        if(current.isAfter(date))
+        if(current.isAfter(date) && this.status != AssignmentStatus.COMPLETED)
             this.status = AssignmentStatus.OVERDUE;
     }
 

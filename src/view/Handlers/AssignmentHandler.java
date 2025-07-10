@@ -61,7 +61,7 @@ public class AssignmentHandler {
         if(userList != null) {
             List<Assignment> overdue = new ArrayList<Assignment>();
             for (Assignment a : userList) {
-                if (a.getStatus() == AssignmentStatus.OVERDUE)
+                if (a.getStatus() != AssignmentStatus.COMPLETED && a.getStatus() == AssignmentStatus.OVERDUE)
                     overdue.add(a);
             }
             return overdue;
@@ -179,11 +179,7 @@ public class AssignmentHandler {
     }
 
     public List<Assignment> removeCompletedAssignments() {
-        for(Assignment a : this.student.getAssignments())
-        {
-            if(a.getStatus() == AssignmentStatus.COMPLETED)
-                this.student.deleteAssignment(a.getAssignmentID());
-        }
+        this.student.getAssignments().removeIf(a -> a.getStatus() == AssignmentStatus.COMPLETED);
         return this.student.getAssignments();
     }
 }
