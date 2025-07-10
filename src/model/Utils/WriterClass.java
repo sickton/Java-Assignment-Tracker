@@ -25,7 +25,7 @@ public class WriterClass {
         try {
             PrintWriter pw = new PrintWriter(new FileOutputStream(pathToStudentFile, true));
             pw.println(s.getFirstName() + "\t" + s.getLastName() + "\t" + s.getAge() + "\t" + s.getStudentID() + "\t"
-            + s.getEmail() + "\t" + s.getMajor());
+            + s.getEmail() + "\t" + s.getMajor() + "\t" + s.getEncryptedPwd());
             pw.close();
             return "Sign Up Successful!";
         } catch (FileNotFoundException e) {
@@ -49,7 +49,8 @@ public class WriterClass {
                 String studentId = parts[3];
                 String mail = parts[4];
                 String major = parts[5];
-                list.add(new Student(first, last, age, studentId, mail, major));
+                String password = RSAUtility.decrypt(parts[6]);
+                list.add(new Student(first, last, age, studentId, mail, major, password));
             }
             sc.close();
             f.close();

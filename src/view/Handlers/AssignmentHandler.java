@@ -24,9 +24,9 @@ public class AssignmentHandler {
      * @param mail mail
      * @param major major
      */
-    public AssignmentHandler(String first, String last, int age, String studentID, String mail, String major)
+    public AssignmentHandler(String first, String last, int age, String studentID, String mail, String major, String password)
     {
-        this.student = new Student(first, last, age, studentID, mail, major);
+        this.student = new Student(first, last, age, studentID, mail, major, password);
     }
 
     /**

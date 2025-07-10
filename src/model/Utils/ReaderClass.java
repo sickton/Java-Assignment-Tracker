@@ -6,7 +6,16 @@ import view.Handlers.AssignmentHandler;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -35,8 +44,9 @@ public class ReaderClass {
                 String studentID = parts[3];
                 String mail = parts[4];
                 String major = parts[5];
+                String password = parts[6];
 
-                AssignmentHandler handler = new AssignmentHandler(first, last, age, studentID, mail, major);
+                AssignmentHandler handler = new AssignmentHandler(first, last, age, studentID, mail, major, password);
                 map.put(studentID, handler);
 
                 File assignmentFile = new File(halfPath + studentID + ".txt");

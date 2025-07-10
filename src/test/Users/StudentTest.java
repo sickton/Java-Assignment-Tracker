@@ -17,7 +17,7 @@ public class StudentTest {
     @Before
     public void setUp()
     {
-        s = new Student("Example", "Person", 20,"examper", "examper@university.abc", "Business");
+        s = new Student("Example", "Person", 20,"examper", "examper@university.abc", "Business", "Random@123");
     }
 
     @Test
@@ -62,13 +62,13 @@ public class StudentTest {
     @Test
     public void testInvalidInputs()
     {
-        assertThrows(IllegalArgumentException.class, () -> new Student(null, "last", 10, "sahsio", "sahsio@uni.adasd", "CSC"));
-        assertThrows(IllegalArgumentException.class, () -> new Student("first", null, 10, "sahsio", "sahsio@uni.adasd", "CSC"));
-        assertThrows(IllegalArgumentException.class, () -> new Student("first", "last", 0, "sahsio", "sahsio@uni.adasd", "CSC"));
-        assertThrows(IllegalArgumentException.class, () -> new Student("", "last", 10, "sahsio", "sahsio@uni.adasd", "CSC"));
-        assertThrows(IllegalArgumentException.class, () -> new Student("first", "", 10, "sahsio", "sahsio@uni.adasd", "CSC"));
-        assertThrows(IllegalArgumentException.class, () -> new Student("first", "last", 10, "sahsio", "sahsiouni.adasd", "CSC"));
-        assertThrows(IllegalArgumentException.class, () -> new Student("first1", "last", 10, "sahsio", "sahsio@uni.adasd", "CSC"));
+        assertThrows(IllegalArgumentException.class, () -> new Student(null, "last", 10, "sahsio", "sahsio@uni.adasd", "CSC", "Random@123"));
+        assertThrows(IllegalArgumentException.class, () -> new Student("first", null, 10, "sahsio", "sahsio@uni.adasd", "CSC", "Random@123"));
+        assertThrows(IllegalArgumentException.class, () -> new Student("first", "last", 0, "sahsio", "sahsio@uni.adasd", "CSC", "Random@123"));
+        assertThrows(IllegalArgumentException.class, () -> new Student("", "last", 10, "sahsio", "sahsio@uni.adasd", "CSC", "Random@123"));
+        assertThrows(IllegalArgumentException.class, () -> new Student("first", "", 10, "sahsio", "sahsio@uni.adasd", "CSC", "Random@123"));
+        assertThrows(IllegalArgumentException.class, () -> new Student("first", "last", 10, "sahsio", "sahsiouni.adasd", "CSC", "Random@123"));
+        assertThrows(IllegalArgumentException.class, () -> new Student("first1", "last", 10, "sahsio", "sahsio@uni.adasd", "CSC", "random@123"));
     }
 
     @Test

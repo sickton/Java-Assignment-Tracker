@@ -1,0 +1,49 @@
+.root {
+    -fx-background-color: #1e1e1e;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13px;
+}
+
+.text-field,
+.password-field {
+    -fx-background-color: #2c2c2c;
+    -fx-text-fill: #f0f0f0;
+    -fx-border-color: #555;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6px;
+}
+
+.primary-button {
+    -fx-background-color: #007ACC;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 8px 16px;
+}
+
+.primary-button:hover {
+    -fx-background-color: #005fa3;
+}
+
+.ghost-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cccccc;
+    -fx-border-color: #555;
+    -fx-border-radius: 6;
+    -fx-padding: 6px 12px;
+}
+
+.ghost-button:hover {
+    -fx-background-color: #333;
+}
+
+.message-label {
+    -fx-text-fill: #FFD700;
+    -fx-font-style: italic;
+    -fx-padding: 8 0 0 0;
+}

@@ -19,7 +19,7 @@ public class AssignmentHandlerTest {
 
     @Before
     public void setup() {
-        handler = new AssignmentHandler("Random", "Person", 20, "RP1", "RP1@XYZ.com", "Computer Science");
+        handler = new AssignmentHandler("Random", "Person", 20, "RP1", "RP1@XYZ.com", "Computer Science", "Random@123");
         Assignment a = new Assignment("CSC", 101, AssignmentType.CODE, "Variables coding", "Code 3 classes", AssignmentStatus.ASSIGNED, LocalDate.now().minusDays(5));
         Assignment a1 = new Assignment("CH", 101, AssignmentType.HOMEWORK, "Homework 1", "On WebAssign", AssignmentStatus.UNASSIGNED, LocalDate.parse("2025-07-20"));
         Assignment a2 = new Assignment("PHY", 201, AssignmentType.LAB, "Laws of Motion Lab", "Check on lab website", AssignmentStatus.PENDING, LocalDate.parse("2025-07-11"));

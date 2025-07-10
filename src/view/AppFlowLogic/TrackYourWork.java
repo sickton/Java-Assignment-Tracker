@@ -25,9 +25,11 @@ public class TrackYourWork {
         currentHandler = null;
     }
 
-    public String signupStudent(String first, String last, int age, String studentID, String mail, String major) {
-        Student s = new Student(first, last, age, studentID, mail, major);
-        studentWork.put(studentID, new AssignmentHandler(first, last, age, studentID, mail, major));
+    public String signupStudent(String first, String last, int age, String studentID, String mail, String major, String password, String retypePassword) {
+        if(!password.equals(retypePassword))
+            throw new SystemException("Passwords do not match");
+        Student s = new Student(first, last, age, studentID, mail, major, password);
+        studentWork.put(studentID, new AssignmentHandler(first, last, age, studentID, mail, major, password));
         return WriterClass.saveStudentDetails(s);
     }
 

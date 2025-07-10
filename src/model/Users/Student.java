@@ -2,6 +2,7 @@ package model.Users;
 
 import model.Data.Assignment;
 import model.Data.AssignmentStatus;
+import model.Utils.RSAUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,9 @@ public class Student {
     /** Field to store the major of student */
     private String major;
 
+    /** Field to store the password of the student */
+    private String password;
+
     /** Field to store the assignments list for the student */
     private List<Assignment> assignments;
 
@@ -46,7 +50,7 @@ public class Student {
      * @param mail mail ID of the student
      * @param major Major of the student
      */
-    public Student(String first, String last, int age, String studentID, String mail, String major)
+    public Student(String first, String last, int age, String studentID, String mail, String major, String password)
     {
         setFirst(first);
         setLast(last);
@@ -59,6 +63,36 @@ public class Student {
         this.age = age;
         setMajor(major);
         this.assignments = new ArrayList<Assignment>();
+        setPassword(password);
+    }
+
+    /**
+     * Method to set the password for the student
+     * @param password password for student account
+     */
+    public void setPassword(String password)
+    {
+        if(password.length() < EIGHT)
+            throw new IllegalArgumentException("Invalid password length!");
+        boolean foundLower = false;
+        boolean foundUpper = false;
+        boolean foundDigit = false;
+        boolean foundSpecial = false;
+        for(int i = 0; i < password.length(); i++)
+        {
+            if(Character.isLowerCase(password.charAt(i)))
+                foundLower = true;
+            else if(Character.isUpperCase(password.charAt(i)))
+                foundUpper = true;
+            else if(Character.isDigit(password.charAt(i)))
+                foundDigit = true;
+            else
+                foundSpecial = true;
+        }
+        if(foundLower &&  foundUpper && foundDigit && foundSpecial)
+            this.password = RSAUtility.encrypt(password);
+        else
+            throw new IllegalArgumentException("Invalid password combination!");
     }
 
     /**
@@ -133,6 +167,15 @@ public class Student {
         if(!found || !foundDot)
             throw new IllegalArgumentException("Invalid E-mail address!");
         this.email = mail;
+    }
+
+    /**
+     * Method to return the encrypted password
+     * @return encrypted password
+     */
+    public String getEncryptedPwd()
+    {
+        return this.password;
     }
 
     /**
