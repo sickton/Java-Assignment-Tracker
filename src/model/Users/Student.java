@@ -90,7 +90,7 @@ public class Student {
                 foundSpecial = true;
         }
         if(foundLower &&  foundUpper && foundDigit && foundSpecial)
-            this.password = RSAUtility.encrypt(password);
+            this.password = password;
         else
             throw new IllegalArgumentException("Invalid password combination!");
     }
@@ -174,6 +174,11 @@ public class Student {
      * @return encrypted password
      */
     public String getEncryptedPwd()
+    {
+        return RSAUtility.encrypt(this.password);
+    }
+
+    public String getPassword()
     {
         return this.password;
     }

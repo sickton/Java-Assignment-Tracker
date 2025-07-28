@@ -6,9 +6,7 @@ import model.Users.Student;
 import view.Handlers.AssignmentHandler;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class WriterClass {
 
@@ -23,13 +21,44 @@ public class WriterClass {
                 return "User already registered in System!";
         }
         try {
+            String pathToCredentials = "src/output/credentials/credentials.txt";;
+            PrintWriter pwOne = new  PrintWriter(new FileOutputStream(pathToCredentials, true));
             PrintWriter pw = new PrintWriter(new FileOutputStream(pathToStudentFile, true));
             pw.println(s.getFirstName() + "\t" + s.getLastName() + "\t" + s.getAge() + "\t" + s.getStudentID() + "\t"
-            + s.getEmail() + "\t" + s.getMajor() + "\t" + s.getEncryptedPwd());
+            + s.getEmail() + "\t" + s.getMajor());
+            pwOne.println(s.getStudentID() + ":" + RSAUtility.encrypt(s.getPassword()));
             pw.close();
+            pwOne.close();
             return "Sign Up Successful!";
         } catch (FileNotFoundException e) {
             throw new WriterException();
+        }
+    }
+
+    private static Map<String, String> loadCredentials() {
+        try
+        {
+            String pathToCredentials = "src/output/credentials/credentials.txt";;
+            FileInputStream f = new FileInputStream(pathToCredentials);
+            Map<String, String> credentials = new HashMap<>();
+            Scanner s = new Scanner(f);
+
+            while(s.hasNextLine())
+            {
+                String line = s.nextLine();
+                if(line.isEmpty()) continue;
+
+                String[] parts = line.split(":");
+                if(parts.length != 2) continue;
+
+                String userName =  parts[0];
+                String passwordEncrypt = parts[1];
+                credentials.put(userName, RSAUtility.decrypt(passwordEncrypt));
+            }
+            s.close();
+            return credentials;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -38,6 +67,7 @@ public class WriterClass {
         try {
             List<Student> list = new ArrayList<Student>();
             FileInputStream f = new FileInputStream(pathToStudentFile);
+            Map<String, String> userCreds = loadCredentials();
             Scanner sc = new Scanner(f);
             while(sc.hasNextLine())
             {
@@ -49,7 +79,7 @@ public class WriterClass {
                 String studentId = parts[3];
                 String mail = parts[4];
                 String major = parts[5];
-                String password = RSAUtility.decrypt(parts[6]);
+                String password = userCreds.get(studentId);
                 list.add(new Student(first, last, age, studentId, mail, major, password));
             }
             sc.close();

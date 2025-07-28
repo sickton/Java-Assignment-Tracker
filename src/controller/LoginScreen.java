@@ -9,12 +9,14 @@ public class LoginScreen extends VBox {
     public LoginScreen(AssignmentTrackerUI app) {
         Label idLabel = new Label("Enter Student ID:");
         TextField studentID = new TextField();
+        Label pwdLabel = new Label("Password:");
+        PasswordField password = new PasswordField();
         Button loginBtn = new Button("Login");
         Label message = new Label();
 
         loginBtn.setOnAction(e -> {
             try {
-                app.getSystem().loginAs(studentID.getText());
+                app.getSystem().loginAs(studentID.getText(), password.getText());
                 message.setText("Login successful!");
                 app.showDashboard();
             } catch (Exception ex) {
@@ -30,7 +32,7 @@ public class LoginScreen extends VBox {
 
         HBox navButtons = new HBox(10, backBtn, signupBtn);
 
-        this.getChildren().addAll(idLabel, studentID, loginBtn, message, navButtons);
+        this.getChildren().addAll(idLabel, studentID, pwdLabel, password, loginBtn, message, navButtons);
         this.setSpacing(10);
         this.setStyle("-fx-padding: 20;");
     }

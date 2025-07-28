@@ -1,6 +1,7 @@
 package view.AppFlowLogic;
 
 import model.Data.AssignmentStatus;
+import model.Utils.RSAUtility;
 import model.Utils.ReaderClass;
 import model.Utils.WriterClass;
 import model.Data.Assignment;
@@ -33,11 +34,15 @@ public class TrackYourWork {
         return WriterClass.saveStudentDetails(s);
     }
 
-    public void loginAs(String studentID) {
+    public void loginAs(String studentID, String pwd) {
         if (studentWork.get(studentID) == null)
             throw new SystemException();
         else {
             currentHandler = studentWork.get(studentID);
+            if(!currentHandler.getStudent().getPassword().equals(pwd)) {
+                currentHandler = null;
+                throw new SystemException("Passwords do not match");
+            }
         }
     }
 
